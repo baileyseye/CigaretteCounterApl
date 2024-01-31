@@ -9,9 +9,11 @@ import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class Controller extends JFrame implements ActionListener {
+public class Controller extends JFrame {
     private ViewUpdater viewUpdater;
-    private ResourceBundle msgBundle = ResourceBundle.getBundle("messages", Locale.getDefault());
+
+    //private ResourceBundle msgBundle =
+    // ResourceBundle.getBundle("messages", Locale.getDefault());
 
     private Model model;
     private boolean isLessThenTwenty;
@@ -43,9 +45,4 @@ public class Controller extends JFrame implements ActionListener {
         System.exit(0);
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }

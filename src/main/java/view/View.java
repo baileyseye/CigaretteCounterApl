@@ -14,16 +14,16 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
     private JButton quitButton;
     private JLabel info;
     private Controller controller;
-
+    ViewUpdater viewUpdater;
     private ResourceBundle msgBundle = ResourceBundle.getBundle("messages", Locale.getDefault());
 
     String infoText = msgBundle.getString("infoLabelText");
 
 
-
     public View(Controller controller) {
         super("Антикурение");
         this.controller = controller;
+        this.viewUpdater = this;
     }
 
 
@@ -64,7 +64,7 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
                 "Первая сигарета - самая тяжелая.");
     }
 
-    public void setLayout(){
+    public void setLayout() {
         this.setLayout(new BorderLayout());
     }
 
@@ -72,21 +72,25 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
         add(textArea, BorderLayout.CENTER);
         add(jButton, BorderLayout.SOUTH);
         add(info, BorderLayout.NORTH);
-        add(quitButton,BorderLayout.EAST);
+        add(quitButton, BorderLayout.EAST);
     }
+
     //Override zone
     @Override
     public void actionPerformed(ActionEvent e) {
         int incrementedValue = controller.cigaCounterIncr();
-        info.setText(msgBundle.getString("infoLabelText") + incrementedValue);
-        if (incrementedValue == 0) {
-            textArea.setText(msgBundle.getString("warningText"));
-            jButton.setText(msgBundle.getString("smokeButtonText"));
-        } else if (incrementedValue < 3) {
-            textArea.setText(msgBundle.getString("hopelessText"));
+        viewUpdater.updateInfo(msgBundle.getString("infoLabelText") + incrementedValue);
+        if (incrementedValue < 3) {
+            viewUpdater.updateTextArea(msgBundle.getString("goodText"));
+            viewUpdater.updateButtonText(msgBundle.getString("smokeButtonText"));
+        } else {
+            viewUpdater.updateTextArea(msgBundle.getString("hopelessText"));
         }
 
     }
+
+
+
 
 
         @Override

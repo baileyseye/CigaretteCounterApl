@@ -39,7 +39,6 @@ public class Controller extends JFrame implements ActionListener {
     }
 
 
-
     public void handleExit() {
         System.exit(0);
     }
@@ -47,15 +46,6 @@ public class Controller extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int incrementedValue = model.cigaCounterIncr();
-        viewUpdater.updateInfo(msgBundle.getString("infoLabelText") + incrementedValue);
-        if (incrementedValue < 3) {
-            viewUpdater.updateTextArea(msgBundle.getString("goodText"));
-        } else {
-            viewUpdater.updateTextArea(msgBundle.getString("hopelessText"));
-            handleExit();
-        }
-        viewUpdater.updateButtonText(msgBundle.getString("smokeButtonText"));
 
     }
 }

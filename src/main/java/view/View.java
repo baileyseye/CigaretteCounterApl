@@ -79,9 +79,11 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
     @Override
     public void actionPerformed(ActionEvent e) {
         int incrementedValue = controller.cigaCounterIncr();
+        controller.writeCigaretteCounterToFile(incrementedValue);
+
         viewUpdater.updateInfo(msgBundle.getString("infoLabelText") + incrementedValue);
         if (incrementedValue < 3) {
-            viewUpdater.updateTextArea(msgBundle.getString("goodText"));
+            viewUpdater.updateTextArea(msgBundle.getString("warnText"));
             viewUpdater.updateButtonText(msgBundle.getString("smokeButtonText"));
         } else {
             viewUpdater.updateTextArea(msgBundle.getString("hopelessText"));

@@ -15,10 +15,7 @@ public class Model {
     }
 
 
-
     public int cigaCounterIncr(){
         return cigaCounter++;
     }
-
-
 }

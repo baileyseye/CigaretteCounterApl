@@ -13,7 +13,7 @@ public class Main {
         Controller controller = new Controller(model);
         View view = new View(controller);
         SwingUtilities.invokeLater(() -> {
-            view.init(400, 500, true);
+            view.init(440, 500, true);
         });
     }
 }

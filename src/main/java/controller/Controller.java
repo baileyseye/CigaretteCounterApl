@@ -14,13 +14,13 @@ import java.util.ResourceBundle;
 
 public class Controller extends JFrame {
     private ViewUpdater viewUpdater;
-
+    private int dayCounter = 1;
     //private ResourceBundle msgBundle =
     // ResourceBundle.getBundle("messages", Locale.getDefault());
 
     private Model model;
     private boolean isLessThenTwenty;
-
+    private boolean newDay;
     public Controller(Model model) {
         this.model = model;
     }
@@ -30,7 +30,11 @@ public class Controller extends JFrame {
         this.viewUpdater = viewUpdater;
     }
 
-
+    public boolean isNewDay() {
+        newDay = true;
+        dayCounter++;
+        return true;
+    }
     public void setCigaCounter(int cigaCounter) {
         model.setCigaCounter(cigaCounter);
     }
@@ -51,10 +55,16 @@ public class Controller extends JFrame {
     public void writeCigaretteCounterToFile(int incrementedValue) {
         String filePath = System.getProperty("user.home") + "/Desktop/cigaretteCounter.txt";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(Integer.toString(incrementedValue));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            if (incrementedValue % 20 == 0 ) {
+                isNewDay();
+            }
+
+            String entry = String.format("Day %d: %d%n", dayCounter, incrementedValue);
+            writer.write(entry);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -2,7 +2,7 @@ package model;
 
 public class Model {
 
-    private int cigaCounter;
+    private int cigaCounter = 1;
 
 
 

@@ -51,7 +51,7 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
 
     public void createJButtons() {
         jButton = new JButton();
-        jButton.setText(msgBundle.getString("smokeButtonText"));
+        jButton.setText(msgBundle.getString("smokeButtonInitText"));
         jButton.addActionListener(this);
         quitButton = new JButton();
         quitButton.setText(msgBundle.getString("quitButtonText"));
@@ -60,8 +60,8 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
 
     public void createTextArea() {
         textArea = new JTextArea();
-        textArea.setText("Одумайся, еще не поздно бросить курить \n сегодня. " +
-                "Первая сигарета - самая тяжелая.");
+        textArea.setText("Come to your senses, it's not too late to quit smoking \n today. " +
+                "The first cigarette is the hardest.");
     }
 
     public void setLayout() {
@@ -84,7 +84,7 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
         viewUpdater.updateInfo(msgBundle.getString("infoLabelText") + incrementedValue);
         if (incrementedValue < 3) {
             viewUpdater.updateTextArea(msgBundle.getString("warnText"));
-            viewUpdater.updateButtonText(msgBundle.getString("smokeButtonText"));
+            viewUpdater.updateButtonText(msgBundle.getString("smokeButtonTextUpd"));
         } else {
             viewUpdater.updateTextArea(msgBundle.getString("hopelessText"));
         }

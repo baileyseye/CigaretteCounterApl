@@ -15,7 +15,7 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
     private JButton quitButton;
     private JLabel info;
     private Controller controller;
-    ViewUpdater viewUpdater;
+    private ViewUpdater viewUpdater;
 
     private ResourceBundle msgBundle = ResourceBundle.getBundle("messages", Locale.getDefault());
 

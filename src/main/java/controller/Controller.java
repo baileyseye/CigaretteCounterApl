@@ -1,22 +1,18 @@
 package controller;
 
 import model.Model;
-import view.ViewUpdater;
 
 import java.io.BufferedWriter;
-import java.io.File;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.logging.Logger;
+import java.nio.file.Paths;
 
 
 public class Controller {
-
-    private ViewUpdater viewUpdater;
     private int dayCounter = 1;
     private Model model;
     private boolean newDay;
@@ -49,32 +45,22 @@ public class Controller {
     }
 
     public void writeCigaretteCounterToFile() {
-        String resourcePath = "src/main/resources/cigaretteCounter.txt";
-        File resourceFile = new File(resourcePath);
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(resourceFile, true))) {
-            switch (getCigaretteCount()) {
-                case 21:
-                    setCigaretteCounter(1);
-                    isNewDay();
-                    break;
-            }
-            String entry = String.format("Day %d: %d%n", dayCounter, getCigaretteCount());
-            writer.write(entry);
-            copyFileToResources(resourcePath);
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void copyFileToResources(String resourcePath) throws IOException, URISyntaxException {
         try {
-            Path sourcePath = new File(resourcePath).toPath();
-            Path destinationPath = new File("target/classes/cigaretteCounter.txt").toPath();
-            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            Files.createDirectories(Paths.get("src/main/resources"));
+            String fileName = "cigaretteCounter.txt";
+            Path filePath = Paths.get("src/main/resources", fileName);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile(), true))) {
+                switch (getCigaretteCount()) {
+                    case 21:
+                        setCigaretteCounter(1);
+                        isNewDay();
+                        break;
+                }
+                String entry = String.format("Day %d: %d%n", dayCounter, getCigaretteCount());
+                writer.write(entry);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -9,19 +9,21 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class View extends JFrame implements ActionListener, ViewUpdater {
+
     private JTextArea textArea;
     private JButton jButton;
     private JButton quitButton;
     private JLabel info;
     private Controller controller;
     ViewUpdater viewUpdater;
+
     private ResourceBundle msgBundle = ResourceBundle.getBundle("messages", Locale.getDefault());
 
     String infoText = msgBundle.getString("infoLabelText");
 
 
     public View(Controller controller) {
-        super("Антикурение");
+        super("AntiSmoking");
         this.controller = controller;
         this.viewUpdater = this;
     }
@@ -78,35 +80,74 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
     //Override zone
     @Override
     public void actionPerformed(ActionEvent e) {
-        int incrementedValue = controller.cigaCounterIncr();
-        controller.writeCigaretteCounterToFile(incrementedValue);
-
+        int incrementedValue = controller.cigaretteCounterIncr();
+        controller.writeCigaretteCounterToFile();
         viewUpdater.updateInfo(msgBundle.getString("infoLabelText") + incrementedValue);
-        if (incrementedValue < 3) {
-            viewUpdater.updateTextArea(msgBundle.getString("warnText"));
-            viewUpdater.updateButtonText(msgBundle.getString("smokeButtonTextUpd"));
-        } else {
-            viewUpdater.updateTextArea(msgBundle.getString("hopelessText"));
+        switch (incrementedValue) {
+            case 0:
+                viewUpdater.updateTextArea(msgBundle.getString("are_you_sure?"));
+                viewUpdater.updateButtonText(msgBundle.getString("yes"));
+                break;
+            case 1:
+                viewUpdater.updateTextArea(msgBundle.getString("firstCigarette"));
+                break;
+            case 2:
+                viewUpdater.updateTextArea(msgBundle.getString("secondCigarette"));
+                break;
+            case 3:
+                viewUpdater.updateTextArea(msgBundle.getString("warnText"));
+                viewUpdater.updateButtonText(msgBundle.getString("smokeButtonTextUpd"));
+                break;
+            case 5:
+                viewUpdater.updateTextArea(msgBundle.getString("hopelessText"));
+                break;
+            case 9:
+                viewUpdater.updateTextArea(msgBundle.getString("hopeText"));
+                break;
+            case 10:
+                viewUpdater.updateTextArea(msgBundle.getString("half_of_all"));
+                break;
+            case 11:
+                viewUpdater.updateTextArea(msgBundle.getString("remaining_half"));
+                break;
+            case 20:
+                viewUpdater.updateTextArea(msgBundle.getString("done_for_today"));
+                break;
+            default:
+                break;
         }
-
     }
 
 
+    @Override
+    public void updateInfo(String text) {
+        info.setText(text);
+    }
+
+    @Override
+    public void updateTextArea(String text) {
+        textArea.setText(text);
+    }
+
+    @Override
+    public void updateButtonText(String text) {
+        jButton.setText(text);
+    }
 
 
+    public JTextArea getTextArea() {
+        return textArea;
+    }
 
-        @Override
-        public void updateInfo(String text) {
-            info.setText(text);
-        }
+    public JButton getjButton() {
+        return jButton;
+    }
 
-        @Override
-        public void updateTextArea(String text) {
-            textArea.setText(text);
-        }
+    public JButton getQuitButton() {
+        return quitButton;
+    }
 
-        @Override
-        public void updateButtonText(String text) {
-            jButton.setText(text);
-        }
+    public JLabel getInfo() {
+        return info;
+    }
 }

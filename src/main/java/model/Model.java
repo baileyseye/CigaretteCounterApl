@@ -2,20 +2,19 @@ package model;
 
 public class Model {
 
-    private int cigaCounter = 1;
+    private int cigaretteCounter = 0;
 
 
-
-    public void setCigaCounter(int cigaCounter) {
-        this.cigaCounter = cigaCounter;
+    public void setCigaretteCounter(int cigaretteCounter) {
+        this.cigaretteCounter = cigaretteCounter;
     }
 
-    public int getCigaCounter() {
-        return cigaCounter;
+    public int getCigaretteCounter() {
+        return cigaretteCounter;
     }
 
 
-    public int cigaCounterIncr(){
-        return cigaCounter++;
+    public int cigaCounterIncr() {
+        return cigaretteCounter++;
     }
 }

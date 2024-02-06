@@ -134,20 +134,4 @@ public class View extends JFrame implements ActionListener, ViewUpdater {
         jButton.setText(text);
     }
 
-
-    public JTextArea getTextArea() {
-        return textArea;
-    }
-
-    public JButton getjButton() {
-        return jButton;
-    }
-
-    public JButton getQuitButton() {
-        return quitButton;
-    }
-
-    public JLabel getInfo() {
-        return info;
-    }
 }

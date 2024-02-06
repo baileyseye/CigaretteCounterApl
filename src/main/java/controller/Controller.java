@@ -41,7 +41,7 @@ public class Controller {
 
 
     public void handleExit() {
-        System.exit(0);
+        Runtime.getRuntime().exit(0);
     }
 
     public void writeCigaretteCounterToFile() {
@@ -62,5 +62,8 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
     }
 }
